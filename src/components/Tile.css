@@ -1,0 +1,84 @@
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: none;
+  border-bottom: 4px solid rgba(0,0,0,0.2);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  user-select: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.tile-normal {
+  width: 72px;
+  height: 72px;
+}
+
+.tile-small {
+  width: 58px;
+  height: 58px;
+}
+
+.tile-queue {
+  width: 62px;
+  height: 62px;
+}
+
+.tile-value {
+  font-family: 'Fredoka One', 'Nunito', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  line-height: 1;
+}
+
+.tile-small .tile-value {
+  font-size: 22px;
+}
+
+.tile-queue .tile-value {
+  font-size: 24px;
+}
+
+.tile-draggable {
+  cursor: grab !important;
+  animation: tilePulse 2s ease-in-out infinite;
+}
+
+.tile-draggable:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.tile-draggable:active {
+  cursor: grabbing !important;
+  transform: scale(0.95);
+}
+
+.tile-animate-in {
+  animation: tilePopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes tilePopIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes tilePulse {
+  0%, 100% {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2), 0 0 0 0 rgba(255,255,255,0);
+  }
+  50% {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2), 0 0 0 6px rgba(255,255,255,0.3);
+  }
+}

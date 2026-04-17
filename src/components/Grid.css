@@ -1,0 +1,109 @@
+.grid-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 30px 6px 6px 6px; /* Top padding leaves space for badges and cat overlap */
+  background: #0d757c;
+  border-radius: 12px;
+  border: 4px solid white;
+  box-sizing: border-box;
+  width: 340px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.grid-cell {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #2bc4c4;
+  border-radius: 6px;
+  border: 3px solid white;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.cell-empty {
+  background: #28b8b8;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.cell-filled {
+  background: transparent;
+  border-color: transparent;
+}
+
+.cell-hint {
+  background: rgba(255, 255, 100, 0.35) !important;
+  border-color: #ffd700 !important;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.5), inset 0 0 8px rgba(255, 215, 0, 0.2);
+  animation: hintPulse 1.2s ease-in-out infinite;
+}
+
+.cell-drag-over {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: #fff !important;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.cell-merge {
+  animation: mergeFlash 0.4s ease;
+}
+
+@keyframes hintPulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.3), inset 0 0 6px rgba(255, 215, 0, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.6), inset 0 0 12px rgba(255, 215, 0, 0.3);
+  }
+}
+
+@keyframes mergeFlash {
+  0% {
+    transform: scale(1.2);
+    filter: brightness(1.5);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .grid-cell {
+    width: 68px;
+    height: 68px;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-cell {
+    width: 60px;
+    height: 60px;
+  }
+  .grid {
+    gap: 4px;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 400px) {
+  .grid-cell {
+    width: 52px;
+    height: 52px;
+  }
+}

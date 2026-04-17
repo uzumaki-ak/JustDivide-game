@@ -1,0 +1,194 @@
+.app-root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.game-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 16px;
+  max-width: 1440px;
+  margin: 0 auto;
+  overflow-y: auto;
+}
+
+/* Gameplay layout container */
+.grid-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* ONE COMPOSED COMPONENT: Cat + Badges */
+.cat-badge-container {
+  position: relative;
+  width: 372px; /* Increased to overhang the 340px grid by ~16px on each side */
+  height: 48px; /* Height of the red badges */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: -18px; /* Pull grid up so badges straddle the top border */
+  z-index: 10;
+}
+
+.cat-wrapper-absolute {
+  position: absolute;
+  bottom: 8px; /* Drop it down slightly so the enlarged chin aggressively bites the lower container */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1; /* Pushed BEHIND the cards */
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+}
+
+.absolute-badge {
+  position: relative; 
+  z-index: 10; /* Cards pulled IN FRONT of the cat */
+}
+
+/* We don't need left/right values since flex space-between handles it natively */
+.level-badge {
+}
+
+.score-badge {
+}
+
+.cat-svg {
+  width: 290px; /* Slightly bigger cat */
+  height: auto;
+  display: block;
+}
+
+@keyframes catIdle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-2px) rotate(-0.5deg); }
+  75% { transform: translateY(-1px) rotate(0.5deg); }
+}
+
+/* Red Badges */
+.red-badge {
+  background: #DC3545;
+  color: white;
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 20px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 3px solid white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  white-space: nowrap;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Gameplay area */
+.gameplay-area {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 80px; /* Push down to clear the overflowing cat head */
+}
+
+/* Score popup */
+.score-popup {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 48px;
+  color: #ffd700;
+  text-shadow: 0 3px 8px rgba(0,0,0,0.3), 0 0 20px rgba(255, 215, 0, 0.5);
+  pointer-events: none;
+  z-index: 100;
+  animation: scoreFloat 1.2s ease-out forwards;
+}
+
+@keyframes scoreFloat {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  30% {
+    transform: translate(-50%, -70%) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -120%) scale(0.8);
+  }
+}
+
+/* Touch drag ghost */
+.touch-drag-ghost {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.9;
+  transform: scale(1.1);
+  filter: drop-shadow(0 6px 20px rgba(0,0,0,0.3));
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .cat-svg {
+    width: 140px;
+  }
+  .red-badge {
+    padding: 6px 12px;
+    font-size: 16px;
+  }
+  .cat-badge-row {
+    gap: 4px;
+  }
+  .cat-wrapper {
+    margin: 0 -15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .game-container {
+    padding: 8px 8px;
+  }
+  .cat-svg {
+    width: 110px;
+  }
+  .red-badge {
+    padding: 4px 8px;
+    font-size: 12px;
+    border-width: 2px;
+  }
+  .cat-wrapper {
+    margin: 0 -10px;
+  }
+  .cat-badge-row {
+    gap: 2px;
+  }
+  .gameplay-area {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .cat-svg {
+    width: 90px;
+  }
+}
+
+/* Scaling for design resolution 1440x1024 */
+@media (min-width: 1440px) {
+  .game-container {
+    padding: 16px 24px;
+  }
+}

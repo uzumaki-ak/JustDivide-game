@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;700;800;900&display=swap');
+
+:root {
+  --pink-bg: #c64994; /* Soft pale peachy-pink */
+  --pink-light: #fff0ec; /* Even lighter */
+  --pink-dark: #ca2366; /* Solid warm pink for the bubbles */
+  --teal: #2bc4c4;
+  --teal-dark: #1fa8a8;
+  --teal-light: #5dd8d8;
+  --orange: #f69c28;
+  --orange-dark: #e08818;
+  --red: #e84040;
+  --red-dark: #c03030;
+  --green: #4cc84c;
+  --green-dark: #38a838;
+  --blue: #3898e8;
+  --blue-dark: #2878c8;
+  --yellow: #f8d848;
+  --purple: #a858d8;
+  --white: #ffffff;
+  --slot-bg: #28b8b8;
+  --slot-border: #ffffff;
+  --grid-bg: rgba(0, 0, 0, 0.08);
+  --shadow: 0 4px 12px rgba(0,0,0,0.15);
+  --tile-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  background: var(--pink-bg);
+}

@@ -1,0 +1,165 @@
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 12px;
+  background: #fbe06a;
+  border-radius: 24px; /* Softer rounding instead of full pill */
+  border: 4px solid #e09f53;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 110px; /* Increased width */
+}
+
+.side-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.keep-section {
+  gap: 8px;
+}
+
+.side-label {
+  font-family: 'Fredoka One', 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.keep-label {
+  color: #00897b;
+}
+
+.trash-label {
+  color: #e53935;
+  margin-bottom: 2px;
+}
+
+.keep-slot {
+  width: 84px; /* Increased from 72px */
+  height: 84px;
+  background: #39d2bd;
+  border-radius: 14px;
+  border: 4px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+.keep-slot:hover {
+  filter: brightness(1.1);
+}
+
+.slot-placeholder {
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Let the queue container span wider than the yellow panel intentionally */
+.queue-section {
+  margin: 6px 0;
+  background: white;
+  padding: 5px;
+  border-radius: 10px;
+  border: 3px solid #b8b8b8;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 2;
+  position: relative;
+}
+
+.queue-tiles {
+  display: flex;
+  flex-direction: row;
+  gap: 8px; /* Clean, distinct gap so tiles definitively don't touch */
+  align-items: center;
+  justify-content: center;
+}
+
+.queue-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.queue-active {
+  /* Removed the 1.08 scale so it doesn't artificially expand into the gap and get cut off */
+  filter: drop-shadow(0 0 8px rgba(0,0,0,0.2));
+  z-index: 10;
+}
+
+.trash-slot {
+  width: 70px; /* Increased from 60px */
+  height: 70px;
+  background: #d44d4d;
+  border-radius: 12px;
+  border: 3px solid white;
+  border-bottom: 4px solid #b23333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.trash-slot:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(232, 64, 64, 0.4);
+}
+
+.trash-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -4px;
+  transform: scale(0.9);
+}
+
+.trash-icon svg {
+  stroke: #fff;
+  fill: none;
+}
+
+.trash-count {
+  font-family: 'Fredoka One', 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .keep-slot {
+    width: 72px;
+    height: 72px;
+  }
+  .trash-slot {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .side-panel {
+    flex-direction: row;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    border-radius: 20px;
+  }
+}

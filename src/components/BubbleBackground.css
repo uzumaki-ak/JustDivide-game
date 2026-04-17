@@ -1,0 +1,34 @@
+.bubble-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #fdecf0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: #f5a09b; /* Solid peach color */
+  border: none;
+  animation: bubbleFloat ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes bubbleFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(10px, -15px) scale(1.05);
+  }
+  50% {
+    transform: translate(-5px, -10px) scale(0.95);
+  }
+  75% {
+    transform: translate(10px, 5px) scale(1.02);
+  }
+}

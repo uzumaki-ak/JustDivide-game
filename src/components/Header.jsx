@@ -1,0 +1,27 @@
+import React from 'react';
+import './Header.css';
+
+export default function Header({ timer, hintsEnabled, onToggleHints, onRestart, onUndo }) {
+  const formatTime = (seconds) => {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
+  return (
+    <div className="header">
+      <h1 className="game-title">JUST DIVIDE</h1>
+      <div className="header-row">
+        <div className="timer-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="13" r="9" stroke="#666" strokeWidth="2"/>
+            <path d="M12 8v5l3 3" stroke="#666" strokeWidth="2" strokeLinecap="round"/>
+            <path d="M9 2h6" stroke="#666" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          <span className="timer-text">{formatTime(timer)}</span>
+        </div>
+      </div>
+      <p className="subtitle">DIVIDE WITH THE NUMBERS TO SOLVE THE ROWS AND COLUMNS.</p>
+    </div>
+  );
+}
