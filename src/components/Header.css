@@ -1,6 +1,44 @@
 .header {
   text-align: center;
   padding: 8px 0;
+  position: relative; /* Container for absolute buttons */
+}
+
+/* Corner buttons */
+.corner-btn {
+  position: absolute;
+  top: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 3px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 20;
+  color: white;
+}
+
+.corner-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.corner-btn:active {
+  transform: scale(0.95);
+}
+
+.pause-btn {
+  left: 20px;
+  background: #7c4dff; /* Purple */
+}
+
+.help-btn {
+  right: 20px;
+  background: #00c853; /* Green */
 }
 
 .game-title {

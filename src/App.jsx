@@ -54,6 +54,8 @@ function App() {
   const [hintsEnabled, setHintsEnabled] = useState(false);
   const [timer, setTimer] = useState(7);
   const [gameOver, setGameOver] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   const [undoStack, setUndoStack] = useState([]);
   const [mergeAnimation, setMergeAnimation] = useState([]);
   const [dragSource, setDragSource] = useState('queue'); // 'queue' or 'keep'
@@ -63,18 +65,18 @@ function App() {
 
   // --- Timer ---
   useEffect(() => {
-    if (!gameOver) {
+    if (!gameOver && !isPaused) {
       timerRef.current = setInterval(() => {
         setTimer((t) => t + 1);
       }, 1000);
     }
     return () => clearInterval(timerRef.current);
-  }, [gameOver]);
+  }, [gameOver, isPaused]);
 
   // --- Keyboard shortcuts ---
   useEffect(() => {
     const handleKey = (e) => {
-      if (gameOver) return;
+      if (gameOver || isPaused) return;
       switch (e.key.toLowerCase()) {
         case 'z':
           handleUndo();
@@ -94,7 +96,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [gameOver, undoStack]);
+  }, [gameOver, isPaused, undoStack]);
 
   // --- Level up detection ---
   useEffect(() => {
@@ -143,7 +145,7 @@ function App() {
   // --- Place tile on grid ---
   const handleGridDrop = useCallback(
     (cellIndex) => {
-      if (gameOver) return;
+      if (gameOver || isPaused) return;
       if (grid[cellIndex] !== null) return;
 
       let tileValue;
@@ -197,7 +199,7 @@ function App() {
 
   // --- KEEP drop ---
   const handleKeepDrop = useCallback(() => {
-    if (gameOver) return;
+    if (gameOver || isPaused) return;
     saveUndo();
 
     if (dragSource === 'keep') return; // already in keep
@@ -215,11 +217,11 @@ function App() {
       setQueue(advanceQueue(queue));
     }
     setDragSource('queue');
-  }, [queue, keepVal, gameOver, dragSource, saveUndo, advanceQueue]);
+  }, [queue, keepVal, gameOver, isPaused, dragSource, saveUndo, advanceQueue]);
 
   // --- TRASH drop ---
   const handleTrashDrop = useCallback(() => {
-    if (gameOver) return;
+    if (gameOver || isPaused) return;
     if (trashCount <= 0) return;
     saveUndo();
 
@@ -230,20 +232,22 @@ function App() {
     }
     setTrashCount((tc) => tc - 1);
     setDragSource('queue');
-  }, [queue, keepVal, trashCount, gameOver, dragSource, saveUndo, advanceQueue]);
+  }, [queue, keepVal, trashCount, gameOver, isPaused, dragSource, saveUndo, advanceQueue]);
 
   // --- Drag start handlers ---
   const handleActiveDragStart = useCallback(() => {
+    if (isPaused) return;
     setDragSource('queue');
-  }, []);
+  }, [isPaused]);
 
   const handleKeepDragStart = useCallback(() => {
+    if (isPaused) return;
     setDragSource('keep');
-  }, []);
+  }, [isPaused]);
 
   // --- Undo ---
   const handleUndo = useCallback(() => {
-    if (undoStack.length === 0) return;
+    if (undoStack.length === 0 || isPaused) return;
     const prev = undoStack[0];
     setGrid(prev.grid);
     setQueue(prev.queue);
@@ -253,7 +257,7 @@ function App() {
     setTrashCount(prev.trashCount);
     setUndoStack((stack) => stack.slice(1));
     setGameOver(false);
-  }, [undoStack]);
+  }, [undoStack, isPaused]);
 
   // --- Restart ---
   const handleRestart = useCallback(() => {
@@ -269,6 +273,7 @@ function App() {
     setUndoStack([]);
     setMergeAnimation([]);
     setDragSource('queue');
+    setIsPaused(false);
   }, []);
 
   // --- Hints ---
@@ -282,6 +287,7 @@ function App() {
   const touchSourceRef = useRef('queue');
 
   const handleTouchStartTile = useCallback((e, source) => {
+    if (isPaused) return;
     e.preventDefault();
     const touch = e.touches[0];
     const tileVal = source === 'keep' ? keepVal : queue[0];
@@ -292,7 +298,7 @@ function App() {
     setTouchPos({ x: touch.clientX, y: touch.clientY });
     touchSourceRef.current = source;
     setDragSource(source);
-  }, [queue, keepVal]);
+  }, [queue, keepVal, isPaused]);
 
   const handleTouchMove = useCallback((e) => {
     if (!touchDragging) return;
@@ -354,6 +360,9 @@ function App() {
           onToggleHints={() => setHintsEnabled((h) => !h)}
           onRestart={handleRestart}
           onUndo={handleUndo}
+          isPaused={isPaused}
+          onTogglePause={() => setIsPaused((p) => !p)}
+          onToggleHelp={() => setShowHelp(true)}
         />
 
         {/* Main gameplay area */}
@@ -414,6 +423,30 @@ function App() {
           </div>
         )}
       </div>
+
+      {showHelp && (
+        <div className="help-overlay" onClick={() => setShowHelp(false)}>
+          <div className="help-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close-help" onClick={() => setShowHelp(false)}>×</button>
+            <h2>How to Play</h2>
+            <div className="help-content">
+              <p>Combine <strong>equal</strong> tiles to clear them from the board.</p>
+              <p>Combine tiles where one <strong>divides</strong> the other. The smaller tile vanishes, and the larger one is replaced by the result!</p>
+              <p>Keep the grid clear and maximize your score!</p>
+            </div>
+            <button className="help-ok-btn" onClick={() => setShowHelp(false)}>Got it!</button>
+          </div>
+        </div>
+      )}
+
+      {isPaused && (
+        <div className="pause-overlay">
+          <div className="pause-modal">
+            <h2>Game Paused</h2>
+            <button className="resume-btn" onClick={() => setIsPaused(false)}>Resume</button>
+          </div>
+        </div>
+      )}
 
       {gameOver && (
         <GameOver score={score} bestScore={bestScore} onRestart={handleRestart} />

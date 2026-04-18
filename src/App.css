@@ -41,10 +41,10 @@
 
 .cat-wrapper-absolute {
   position: absolute;
-  bottom: 8px; /* Drop it down slightly so the enlarged chin aggressively bites the lower container */
+  bottom: -105px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1; /* Pushed BEHIND the cards */
+  z-index: 1;
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
 }
 
@@ -53,15 +53,8 @@
   z-index: 10; /* Cards pulled IN FRONT of the cat */
 }
 
-/* We don't need left/right values since flex space-between handles it natively */
-.level-badge {
-}
-
-.score-badge {
-}
-
 .cat-svg {
-  width: 290px; /* Slightly bigger cat */
+  width: 430px; /* Scaled up significantly to reach the badge borders */
   height: auto;
   display: block;
 }
@@ -190,5 +183,112 @@
 @media (min-width: 1440px) {
   .game-container {
     padding: 16px 24px;
+  }
+}
+/* Overlays */
+.help-overlay, .pause-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.help-modal, .pause-modal {
+  background: #fff;
+  padding: 30px;
+  border-radius: 24px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  transform: translateY(0);
+  animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popUp {
+  from { transform: translateY(20px) scale(0.9); }
+  to { transform: translateY(0) scale(1); }
+}
+
+.help-modal h2, .pause-modal h2 {
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 28px;
+  color: #2d2d2d;
+  margin-bottom: 20px;
+}
+
+.help-content {
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.help-content p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.help-content strong {
+  color: #ff4081;
+}
+
+.close-help {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+}
+
+.help-ok-btn, .resume-btn {
+  background: linear-gradient(135deg, #7c4dff, #651fff);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
+}
+
+.help-ok-btn:hover, .resume-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(124, 77, 255, 0.4);
+}
+
+.help-ok-btn:active, .resume-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .help-modal, .pause-modal {
+    padding: 20px;
+  }
+  .help-modal h2, .pause-modal h2 {
+    font-size: 22px;
+  }
+  .help-content p {
+    font-size: 14px;
   }
 }
