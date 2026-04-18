@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 16px;
+  padding: 15px 16px;
   max-width: 1440px;
   margin: 0 auto;
   overflow-y: auto;
@@ -30,39 +30,54 @@
 /* ONE COMPOSED COMPONENT: Cat + Badges */
 .cat-badge-container {
   position: relative;
-  width: 372px; /* Increased to overhang the 340px grid by ~16px on each side */
-  height: 48px; /* Height of the red badges */
+  width: 380px;
+  /* Fixed width for desktop to straddle the 340px grid */
+  height: 48px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: -18px; /* Pull grid up so badges straddle the top border */
+  margin-bottom: -16px;
+  /* Pull grid up so badges straddle the top border */
   z-index: 10;
 }
 
 .cat-wrapper-absolute {
   position: absolute;
   bottom: -105px;
+  /* Aggressive bite for desktop */
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
 }
 
 .absolute-badge {
-  position: relative; 
-  z-index: 10; /* Cards pulled IN FRONT of the cat */
+  position: relative;
+  z-index: 10;
+  /* Cards pulled IN FRONT of the cat */
 }
 
 .cat-svg {
-  width: 430px; /* Scaled up significantly to reach the badge borders */
+  width: 430px;
+  /* Scaled up significantly to reach the badge borders */
   height: auto;
   display: block;
 }
 
 @keyframes catIdle {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-2px) rotate(-0.5deg); }
-  75% { transform: translateY(-1px) rotate(0.5deg); }
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-2px) rotate(-0.5deg);
+  }
+
+  75% {
+    transform: translateY(-1px) rotate(0.5deg);
+  }
 }
 
 /* Red Badges */
@@ -74,7 +89,7 @@
   padding: 8px 16px;
   border-radius: 8px;
   border: 3px solid white;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   white-space: nowrap;
   height: 48px;
   display: flex;
@@ -88,7 +103,8 @@
   align-items: flex-start;
   justify-content: center;
   gap: 24px;
-  margin-top: 80px; /* Push down to clear the overflowing cat head */
+  margin-top: 80px;
+  /* Push down to clear the overflowing cat head */
 }
 
 /* Score popup */
@@ -100,7 +116,7 @@
   font-family: 'Fredoka One', sans-serif;
   font-size: 48px;
   color: #ffd700;
-  text-shadow: 0 3px 8px rgba(0,0,0,0.3), 0 0 20px rgba(255, 215, 0, 0.5);
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.5);
   pointer-events: none;
   z-index: 100;
   animation: scoreFloat 1.2s ease-out forwards;
@@ -111,10 +127,12 @@
     opacity: 1;
     transform: translate(-50%, -50%) scale(0.5);
   }
+
   30% {
     transform: translate(-50%, -70%) scale(1.2);
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translate(-50%, -120%) scale(0.8);
@@ -128,7 +146,7 @@
   z-index: 9999;
   opacity: 0.9;
   transform: scale(1.1);
-  filter: drop-shadow(0 6px 20px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.3));
 }
 
 /* Responsive */
@@ -136,46 +154,86 @@
   .cat-svg {
     width: 140px;
   }
+
   .red-badge {
     padding: 6px 12px;
     font-size: 16px;
   }
+
   .cat-badge-row {
     gap: 4px;
   }
+
   .cat-wrapper {
     margin: 0 -15px;
   }
 }
 
 @media (max-width: 600px) {
-  .game-container {
-    padding: 8px 8px;
+  .header {
+    padding: 10px 10px 40px;
   }
+
+  .header h1 {
+    font-size: 24px;
+    margin-top: 5px;
+  }
+
+  .header p {
+    font-size: 10px;
+    max-width: 250px;
+    margin: 5px auto;
+  }
+
+  .cat-badge-container {
+    width: 320px;
+    /* Matching mobile grid width */
+    height: 40px;
+    margin-bottom: -12px;
+  }
+
+  .cat-wrapper-absolute {
+    bottom: -48px;
+    /* Adjusted to bite the border on mobile */
+  }
+
   .cat-svg {
-    width: 110px;
+    width: 220px;
   }
+
   .red-badge {
-    padding: 4px 8px;
-    font-size: 12px;
-    border-width: 2px;
+    min-width: 100px;
+    padding: 6px 10px;
+    font-size: 13px;
+    border-width: 3px;
   }
-  .cat-wrapper {
-    margin: 0 -10px;
-  }
-  .cat-badge-row {
-    gap: 2px;
-  }
+
   .gameplay-area {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    margin-top: 10px;
+  }
+
+  .side-panel {
+    width: 100%;
+    max-width: 340px;
+    padding: 10px;
+    gap: 10px;
   }
 }
 
 @media (max-width: 400px) {
+  .cat-badge-container {
+    width: 280px;
+  }
+
   .cat-svg {
-    width: 90px;
+    width: 190px;
+  }
+
+  .cat-wrapper-absolute {
+    bottom: -15px;
   }
 }
 
@@ -185,8 +243,10 @@
     padding: 16px 24px;
   }
 }
+
 /* Overlays */
-.help-overlay, .pause-overlay {
+.help-overlay,
+.pause-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -202,11 +262,17 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-.help-modal, .pause-modal {
+.help-modal,
+.pause-modal {
   background: #fff;
   padding: 30px;
   border-radius: 24px;
@@ -214,17 +280,23 @@
   width: 90%;
   text-align: center;
   position: relative;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   transform: translateY(0);
   animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes popUp {
-  from { transform: translateY(20px) scale(0.9); }
-  to { transform: translateY(0) scale(1); }
+  from {
+    transform: translateY(20px) scale(0.9);
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+  }
 }
 
-.help-modal h2, .pause-modal h2 {
+.help-modal h2,
+.pause-modal h2 {
   font-family: 'Fredoka One', sans-serif;
   font-size: 28px;
   color: #2d2d2d;
@@ -259,7 +331,8 @@
   cursor: pointer;
 }
 
-.help-ok-btn, .resume-btn {
+.help-ok-btn,
+.resume-btn {
   background: linear-gradient(135deg, #7c4dff, #651fff);
   color: white;
   border: none;
@@ -272,22 +345,29 @@
   box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
 }
 
-.help-ok-btn:hover, .resume-btn:hover {
+.help-ok-btn:hover,
+.resume-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(124, 77, 255, 0.4);
 }
 
-.help-ok-btn:active, .resume-btn:active {
+.help-ok-btn:active,
+.resume-btn:active {
   transform: translateY(0);
 }
 
 @media (max-width: 600px) {
-  .help-modal, .pause-modal {
+
+  .help-modal,
+  .pause-modal {
     padding: 20px;
   }
-  .help-modal h2, .pause-modal h2 {
+
+  .help-modal h2,
+  .pause-modal h2 {
     font-size: 22px;
   }
+
   .help-content p {
     font-size: 14px;
   }

@@ -132,12 +132,32 @@
 @media (max-width: 600px) {
   .game-title {
     font-size: 24px;
+    letter-spacing: 1.5px;
   }
   .subtitle {
     font-size: 11px;
+    max-width: 200px;
+    margin: 0 auto;
   }
   .control-btn {
     padding: 4px 10px;
     font-size: 11px;
+  }
+  .corner-btn {
+    width: 36px;
+    height: 36px;
+    top: 8px;
+  }
+  .pause-btn {
+    left: 8px;
+  }
+  .help-btn {
+    right: 8px;
+  }
+  .timer-badge {
+    padding: 3px 10px;
+  }
+  .timer-text {
+    font-size: 14px;
   }
 }
