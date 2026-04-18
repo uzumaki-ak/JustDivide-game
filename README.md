@@ -1,31 +1,65 @@
-# Just Divide - Kid Mode
+# Just Divide - Kid Mode 🐱🎮
 
-A visually stunning, math-based puzzle game built with ReactJS for children aged 7-12. This project focuses on factor/multiple recognition and strategic division through an engaging "Kid Mode" interface.
+A visually stunning, math-based puzzle game built with ReactJS, designed to help children (aged 7-12) master division, factors, and multiples through engaging, tactile gameplay. 
 
-## 🚀 Quick Start
-1. Clone the repository
-2. Run `npm install`
-3. Run `npm run dev` to start the development server
+**🔗 Live Demo:** [https://just-divide-game-delta.vercel.app/](https://just-divide-game-delta.vercel.app/)
+
+---
+
+## ✨ Features
+*   **Intuitive Drag & Drop**: Smooth tile placement across Grid, KEEP, and TRASH slots.
+*   **Dynamic Merge Logic**: Multiple merge types (Equality, Division) with recursive resolution.
+*   **Kid-Friendly UI**: Premium visuals with "Glassmorphism" effects, animated bubble backgrounds, and a cute cat guide.
+*   **Advanced Game State**: Functional **Undo** (up to 10 states), **Pause** system, and **Smart Hints** that highlight move-making opportunities.
+*   **Level & Progression**: Level-up every 10 points, unlocking more TRASH uses as you go.
+*   **Persistence**: Automatic **Best Score** tracking using `localStorage`.
+
+---
+
+## 🎲 How to Play (Rules)
+*   **Objective**: Drag tiles from the queue into the 4x4 grid. Clear tiles and divide their values to prevent the grid from filling up.
+*   **Merge Rules**:
+    1.  **Equality**: Two touching tiles of the same value vanish immediately. (e.g., `4 + 4 = Clear`)
+    2.  **Division**: If the larger tile is divisible by the smaller tile, the smaller one vanishes and the larger is replaced by the result. (e.g., `12 + 3 = 4`)
+    3.  **The "1" Rule**: If a division results in `1`, the tile is removed from the board entirely.
+*   **Action Slots**:
+    *   **KEEP**: Store a tricky tile for later or swap it with the current active tile.
+    *   **TRASH**: Discard an unwanted tile (limited uses per level).
+
+---
 
 ## 🛠 Approach & Implementation
-The game was built using a **component-driven architecture** in React.
-- **State Management**: Centralized in `App.jsx` using React Hooks (`useState`, `useEffect`, `useCallback`) to maintain a single source of truth for the 4x4 grid, queue, and scoring.
-- **Logic Engine**: Decoupled game logic in `src/utils/gameLogic.js`. This allows for pure functional testing of the merge rules (Equality, Division, and the "Result of 1" rule) outside of the UI.
-- **Visuals**: Modern CSS with frosted glass effects (Glassmorphism), animated bubble backgrounds, and a responsive layout designed for 1440x1024 workspaces.
+The project follows a **Modular React Architecture**:
+- **Logic Isolation**: The core engine (merges, neighbor detection, game over checks) is abstracted into `src/utils/gameLogic.js`. This ensures the UI remains "dumb" and purely focused on rendering state.
+- **State Management**: Handled via React standard hooks. `useCallback` and `useMemo` were used extensively to prevent unnecessary re-renders during high-frequency drag events.
+- **Responsive Design**: Built using a hybrid of CSS Grid/Flexbox and media queries, targeting a core design resolution of **1440 x 1024** while maintaining full usability on mobile and tablet.
+
+---
 
 ## 🔑 Key Decisions
-- **Custom Drag & Drop**: Implemented a lightweight drag-and-drop system with full support for both **Mouse** and **Touch** events to ensure smooth gameplay on mobile and tablet devices.
-- **Z-Index Layering**: The "Cat" character is dynamically layered behind the Level/Score badges and overlaps the grid to create a sense of depth and interaction with the game board.
-- **Hint System**: A dynamic cell-highlighting system that uses the pure logic engine to pre-calculate valid moves for the player.
+- **Custom Event Handlers**: Instead of using heavy libraries like `react-dnd`, I implemented custom Pointer and Mouse handlers. This kept the bundle size small and allowed for precise control over the "ghost" tile during touch events.
+- **Visual Depth**: Positioning the Cat character at a lower `z-index` than the score badges but higher than the grid creates a layered, "3D" feel that makes the interface feel more alive.
+- **Font & Branding**: Used `Fredoka One` for the primary headers to give the game a playful, premium toy-like aesthetic.
 
-## 🚧 Challenges
-- **Merge Cascades**: Ensuring that multiple merges (e.g., a division resulting in a number that then merges with an adjacent twin) resolve correctly in a single turn. This was solved using a `while` loop in the resolution logic.
-- **Visual Alignment**: Adjusting the absolute positioning of the "Cat" character to precisely "bite" the grid border while ensuring the paws sit correctly on top of the moving badges across various screen sizes.
+---
+
+## 🚧 Challenges & Solutions
+- **Recursive Merge Resolution**: A single tile placement can trigger a chain reaction of merges. I implemented a `while` loop within the `resolveMerges` utility that continues to scan the board until no further valid merges exist, ensuring perfect accuracy every turn.
+- **Layout Precision**: Pinning the Cat character's paws so they sit exactly on the borders of the "Level" and "Score" cards across different screen scales required careful coordinate mapping and `transform` logic.
+
+---
 
 ## 📈 Future Improvements
-- **Animated Merges**: Adding more granular CSS animations or Framer Motion for tiles as they merge/divide to enhance the game's tactile feel.
-- **Sound Design**: Integrating subtle audio cues for successful merges and level-ups to provide better feedback to the player.
-- **Themes**: Multiple cat characters and background colors that change as the player reaches higher levels.
+- **Micro-Interactions**: Adding spring-physics animations for tile merges using `Framer Motion`.
+- **Sound Effects**: Adding "pop" sounds for merges and a rewarding chime for Level-Ups.
+- **Themes**: Expanding from the "Pink Peach" theme to include Dark Mode or seasonal variations.
+
+---
+
+### 💻 Local Development
+1. Clone the repo: `git clone https://github.com/uzumaki-ak/JustDivide-game.git`
+2. Install dependencies: `npm install`
+3. Launch: `npm run dev`
 
 ---
 **Submission for "Just Divide - Kid Mode" Task.**
